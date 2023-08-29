@@ -4,7 +4,8 @@ import 'widget/expenses.dart';
 
 void main() {
   runApp(
-    const MaterialApp(home: Expenses() //...
+    MaterialApp(
+        theme: ThemeData(useMaterial3: true), home: const Expenses() //...
         ),
   );
 }
