@@ -1,3 +1,4 @@
+import 'package:extense_tracker_app/widget/chart/chart.dart';
 import 'package:extense_tracker_app/widget/expenses_list/expenses_list.dart';
 import 'package:extense_tracker_app/widget/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -90,11 +91,36 @@ class _Expenses extends State<Expenses> {
       ),
       body: Column(
         children: [
+          Chart(expenses: _registeredExpenses),
           Expanded(
             child: mainContent,
           ),
         ],
       ),
     );
+  }
+}
+
+class ExpenseBucket {
+  const ExpenseBucket({
+    required this.category,
+    required this.expenses,
+  });
+
+  ExpenseBucket.forCategory(List<Expense> allExpenses, this.category)
+      : expenses = allExpenses
+            .where((expense) => expense.category == category)
+            .toList();
+
+  final Category category;
+  final List<Expense> expenses;
+
+  double get totalExpenses {
+    double sum = 0;
+
+    for (final expense in expenses) {
+      sum += expense.amount;
+    }
+    return sum;
   }
 }
